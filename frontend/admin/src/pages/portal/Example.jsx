@@ -110,6 +110,8 @@ function Example() {
         newItem.children = item.children;
       }
 
+      
+
 
       // sidebar into
       if (item.type === SIDEBAR_ITEM) {
