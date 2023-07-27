@@ -97,9 +97,9 @@ function Example() {
 
   const handleDrop = useCallback(
     (dropZone, item) => {
-      const newItem = { id: item.id, type: item.type, component:item.component };
+      //, component : item.component 
+      const newItem = { id: item.id, type: item.type, content: item.content};
       setNewItems(prevItems => [...prevItems, newItem]);
-     
       setLastPK(lastPK + 1);
 
       const splitDropZonePath = dropZone.path.split("-");
@@ -120,12 +120,10 @@ function Example() {
         };
         const newItem = {
           id: newComponent.id,
-          type: COMPONENT
+          type: COMPONENT,
+          content: newComponent.content
         };
-        // setComponents(prevComponents => ({
-        //   ...prevComponents,
-        //   [newComponent.id]: newComponent
-        // }));
+        
 
         setComponents({
           ...components,

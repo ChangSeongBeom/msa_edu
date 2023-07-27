@@ -168,9 +168,9 @@ components: {
   6: { id: "6", type: "관리자 추천", content: "관리자 추천 영역" }, 
   7: { id: "7", type: "쇼츠영상", content: "쇼츠영상 영역" },
   8: { id: "8", type: "게시판", content: "게시판 영역" },
-  9: { id: "9", type: "게시판", content: "게시판 영역" }
+  9: { id: "9", type: "게시판", content: "게시판 영역" },
 
-
+  10: { id: "10", type: "게시판", content: "게시판 영역" }
  }
 };
 export default initialData;
