@@ -1,15 +1,14 @@
 package org.egovframe.cloud.portalservice.api.portal;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.egovframe.cloud.portalservice.CustomMapper;
 import org.egovframe.cloud.portalservice.api.banner.dto.BannerRequestDto;
-import org.egovframe.cloud.portalservice.api.portal.dto.ComponentResponseDto;
-import org.egovframe.cloud.portalservice.api.portal.dto.NestedPortalListResponseDto;
-import org.egovframe.cloud.portalservice.api.portal.dto.PortalLayoutRequestDto;
-import org.egovframe.cloud.portalservice.api.portal.dto.PortalListResponseDto;
+import org.egovframe.cloud.portalservice.api.portal.dto.*;
 import org.egovframe.cloud.portalservice.domain.portal.Portal;
 import org.egovframe.cloud.portalservice.domain.portal.PortalRepository2;
 
+import org.egovframe.cloud.portalservice.service.portal.PortalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,11 +23,17 @@ import java.util.stream.Collectors;
 @RestController
 public class PortalAdminController {
 
-    @Autowired
-    private PortalRepository2 portalRepo;
-    CustomMapper mapper=new CustomMapper();
+    private final PortalService portalService;
+    private final PortalRepository2 portalRepo;
+    private final CustomMapper mapper;
     private Function<Portal, PortalListResponseDto> mapToPersonDTO = this::convertToDTO;
 
+    @Autowired
+    public PortalAdminController(PortalService portalService, PortalRepository2 portalRepo) {
+        this.portalService = portalService;
+        this.portalRepo = portalRepo;
+        this.mapper = new CustomMapper();
+    }
 //    @GetMapping("/api/v1/portals/{id}")
 //    public ResponseEntity<PortalListResponseDto> getAllDetails(@PathVariable("id") Long id) {
 //        return portalRepo.findById(id).map(mapToPersonDTO).map(ResponseEntity::ok)
@@ -49,9 +54,14 @@ public class PortalAdminController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @GetMapping("/api/v1/getPortals/portalDesc")
+    public List<PortalDescResponseDto> portalDescList() {
+        List<PortalDescResponseDto> portalDescResponseDtoList=portalService.portalDescList();
+        return portalDescResponseDtoList;
+    }
     @PostMapping("/api/v1/getPortals/save")
-    public ResponseEntity<List<PortalListResponseDto>> saveLayout(@RequestBody List<PortalLayoutRequestDto> portalLayoutRequestDto) {
-        System.out.println(portalLayoutRequestDto);
+    public ResponseEntity<List<PortalListResponseDto>> saveLayout(@RequestBody List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
+        portalService.responsePortalLayout(portalLayoutRequestDtoList);
 
         return null;
 //        List<Portal> portals = portalRepo.findPortalsByAll(portalId);
@@ -84,6 +94,8 @@ public class PortalAdminController {
         Long lastPK=portalRepo.getLastPK();
         return lastPK;
     }
+
+
     private void removeEmptyChildren(PortalListResponseDto dto) {
         if (dto.getChildren() != null && dto.getChildren().isEmpty()) {
             dto.setChildren(null);

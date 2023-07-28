@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import Example from "./Example";
+import Portal from "./Portal";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 
@@ -11,7 +11,7 @@ function Index() {
   return (
     <div className={styles.index}>
       <DndProvider backend={Backend}>
-        <Example />
+        <Portal />
       </DndProvider>
     </div>
   );

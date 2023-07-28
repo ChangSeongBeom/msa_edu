@@ -5,24 +5,23 @@ import org.egovframe.cloud.portalservice.api.portal.dto.PortalListResponseDto;
 import org.egovframe.cloud.portalservice.domain.content.Content;
 import org.egovframe.cloud.portalservice.domain.content.ContentRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 @Transactional
-public class PortalRepository{
+public interface PortalRepository extends JpaRepository<Portal,Long>{
 
-    @PersistenceContext
-    private final EntityManager em;
+    @Query(value = "SELECT id FROM Portal ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    Long getLastPK();
 
-
-    public Iterable<Portal> getPortal(){
-        return em.createQuery("select p from Portal p",Portal.class)
-                .getResultList();
-    }
+    @Query(value = "SELECT * FROM portal p WHERE p.parent_id IS NULL and p.portal_desc IS NOT NULL", nativeQuery = true)
+    List<Portal> getPortalByDesc();
 }
 
