@@ -29,7 +29,6 @@ function Example() {
   const initialComponents = initialData.components;
   const [components, setComponents] = useState(initialComponents);
 
-  const MESSAGE_URL = `${SERVER_API_URL}/portal-service/api/v1/getPortals/1`;
   const { user, loading, isLogin, loggedOut } = useUser()
   const [dataLayout, setDataLayout] = useState([]);
 
@@ -54,11 +53,11 @@ function Example() {
 
   useEffect(() => {
     setLayout(dataLayout);
-    console.log("layout",layout);
+    // console.log("layout",layout);
   }, [dataLayout]);
 
   useEffect(() => {
-    console.log("Updated layout:", layout);
+    // console.log("Updated layout:", layout);
   }, [layout]);
 
 
@@ -98,19 +97,19 @@ function Example() {
   const handleDrop = useCallback(
     (dropZone, item) => {
       //, component : item.component 
-      const newItem = { id: item.id, type: item.type, content: item.content};
+      const newItem = { id: item.id, type: item.type, content: item.content };
       setNewItems(prevItems => [...prevItems, newItem]);
       setLastPK(lastPK + 1);
 
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
-      
+
       if (item.type === COLUMN) {
         newItem.children = item.children;
       }
 
-      
+
 
 
       // sidebar into
@@ -125,7 +124,7 @@ function Example() {
           type: COMPONENT,
           content: newComponent.content
         };
-        
+
 
         setComponents({
           ...components,
@@ -189,7 +188,7 @@ function Example() {
       );
 
     },
-    [layout, components,lastPK, setLastPK]
+    [layout, components, lastPK, setLastPK]
   );
 
   const renderRow = (row, currentPath) => {

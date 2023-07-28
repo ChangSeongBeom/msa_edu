@@ -57,6 +57,4 @@ public class Portal extends BaseEntity {
         return children;
     }
 
-
-
 }
