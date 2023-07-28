@@ -134,8 +134,7 @@ export const handleMoveToDifferentParent = (
   splitItemPath,
   item
 ) => {
-  console.log("asdfasdf"+layout);
-  console.log("asdfasdf"+item);
+
 
   let newLayoutStructure;
   const COLUMN_STRUCTURE = {
@@ -198,25 +197,32 @@ export const handleMoveSidebarComponentIntoParent = (
   layout,
   splitDropZonePath,
   item,
-  lastPK
+  lastPK,
+  setLastPK
 ) => {
   let newLayoutStructure;
   switch (splitDropZonePath.length) {
     case 1: {
+      const newParentId = lastPK ;
       newLayoutStructure = {
         type: ROW,
-        id: lastPK,
+        id: newParentId+1,
         //id: shortid.generate(),
-        children: [{ type: COLUMN, id: lastPK, children: [item] }]
+        children: [{ type: COLUMN, id: newParentId+2, children: [item] }]
       };
+      setLastPK(newParentId+3);
       break;
     }
     case 2: {
+     
+      const newId = lastPK + 1;
       newLayoutStructure = {
         type: COLUMN,
-        id: lastPK,
+        id: newId,
         children: [item]
       };
+      setLastPK(newId+1);
+      //setLastPK(lastPK + 1);
       break;
     }
     default: {

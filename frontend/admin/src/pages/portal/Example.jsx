@@ -136,7 +136,8 @@ function Example() {
             layout,
             splitDropZonePath,
             newItem,
-            lastPK
+            lastPK,
+            setLastPK
           )
         );
 
@@ -168,7 +169,8 @@ function Example() {
             splitDropZonePath,
             splitItemPath,
             newItem,
-            lastPK
+            lastPK,
+            setLastPK
           )
         );
 
@@ -187,7 +189,7 @@ function Example() {
       );
 
     },
-    [layout, components]
+    [layout, components,lastPK, setLastPK]
   );
 
   const renderRow = (row, currentPath) => {
