@@ -1,0 +1,32 @@
+.portal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.portalBanner {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+}
+
+.portalDesc {
+    background-color: lightblue;
+    width: 70vw;
+}
+
+.portalDetail{
+    display: flex;
+}
+.portalDetailDesc{
+    flex:8.5;
+    margin: 10px;
+    border: 2px solid black;
+}
+.portalDetailButton{
+    flex:1.5;
+    margin: 10px;
+    border: 2px solid black;
+    width: 30px;
+}

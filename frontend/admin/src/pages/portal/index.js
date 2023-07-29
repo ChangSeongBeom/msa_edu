@@ -5,7 +5,7 @@ import Portal from "./Portal";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 
-import styles from "./index.module.css";
+import styles from "./css/index.module.css";
 
 function Index() {
   return (

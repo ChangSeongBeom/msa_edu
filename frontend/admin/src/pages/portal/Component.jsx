@@ -11,7 +11,7 @@ const style = {
   cursor: "move"
 };
 const Component = ({ data, components, path }) => {
-
+  console.log("component data",data);
   const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
@@ -25,10 +25,10 @@ const Component = ({ data, components, path }) => {
   drag(ref);
   
   
-  const component = components[data.id];
-  if (!component) {
-    return null; // Return null or some placeholder content if the component is not found
-  }
+  // const component = components[data.id];
+  // if (!component) {
+  //   return null; // Return null or some placeholder content if the component is not found
+  // }
 
   
   return (
@@ -39,7 +39,7 @@ const Component = ({ data, components, path }) => {
       //className="component draggable"
     >
       <div>{data.id}</div>
-      <div>{component.content}</div>
+      <div>{data.content}</div>
     </div>
   );
 };
