@@ -40,6 +40,8 @@ public class PortalAdminController {
 //                .orElse(ResponseEntity.notFound().build());
 //    }
 
+
+
     @GetMapping("/api/v1/getPortals/{portalId}")
     public ResponseEntity<List<PortalListResponseDto>> getAllPortals(@PathVariable("portalId") String portalId) {
         List<Portal> portals = portalRepo.findPortalsByAll(portalId);
@@ -48,9 +50,12 @@ public class PortalAdminController {
         List<PortalListResponseDto> result = new ArrayList<>();
         portals.forEach(u -> {
             PortalListResponseDto dto = mapper.strictModelMapper().map(u, PortalListResponseDto.class);
-            removeEmptyChildren(dto); // Call a method to recursively remove empty children
+            removeEmptyChildren(dto);// Call a method to recursively remove empty children
             result.add(dto);
         });
+        Collections.sort(result, Comparator.comparingLong(PortalListResponseDto::getId));
+
+
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -61,7 +66,8 @@ public class PortalAdminController {
     }
     @PostMapping("/api/v1/getPortals/save/{portalNm}")
     public ResponseEntity<List<PortalListResponseDto>> saveLayout(@PathVariable String portalNm,@RequestBody List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
-        portalService.responsePortalLayout(portalNm,portalLayoutRequestDtoList);
+        String portalDescDetail=portalService.portalDescDetail(portalNm);
+        portalService.responsePortalLayout(portalDescDetail,portalNm,portalLayoutRequestDtoList);
 
         return null;
 //        List<Portal> portals = portalRepo.findPortalsByAll(portalId);
@@ -94,6 +100,7 @@ public class PortalAdminController {
         Long lastPK=portalRepo.getLastPK();
         return lastPK;
     }
+
 
 
     private void removeEmptyChildren(PortalListResponseDto dto) {

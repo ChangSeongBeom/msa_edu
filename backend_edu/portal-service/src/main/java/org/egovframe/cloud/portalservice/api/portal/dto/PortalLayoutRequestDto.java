@@ -26,7 +26,7 @@ public class PortalLayoutRequestDto {
     private Long id;
 
     private String content;
-
+    private String portalDesc;
     private NestedPortalListResponseDto parent;
     private Set<PortalListResponseDto> children;
 }

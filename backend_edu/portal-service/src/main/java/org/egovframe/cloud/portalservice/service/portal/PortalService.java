@@ -21,7 +21,8 @@ import java.util.List;
 
 
 public interface PortalService{
-    public void responsePortalLayout(String portalNm, List<PortalLayoutRequestDto> portalLayoutRequestDtoList);
+    public void responsePortalLayout(String portalDescDetail,String portalNm, List<PortalLayoutRequestDto> portalLayoutRequestDtoList);
 
+    public String portalDescDetail(String portalNm);
     public List<PortalDescResponseDto> portalDescList();
 }

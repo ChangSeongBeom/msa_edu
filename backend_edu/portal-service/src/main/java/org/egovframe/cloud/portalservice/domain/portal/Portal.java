@@ -44,6 +44,7 @@ public class Portal extends BaseEntity {
     private String portalDesc;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
     @Getter
     @Setter
     private Portal parent;
@@ -55,11 +56,12 @@ public class Portal extends BaseEntity {
     private Set<Portal> children;
 
     @Builder
-    public Portal(Long id, String type, String portalNm, String content, Portal parent) {
+    public Portal(Long id, String type, String portalNm, String content,String portalDesc, Portal parent) {
         this.id = id;
         this.type = type;
         this.portalNm = portalNm;
         this.content = content;
+        this.portalDesc=portalDesc;
         this.parent = parent;
     }
 
