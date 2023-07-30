@@ -25,8 +25,9 @@ public class PortalImpl implements PortalService {
     public void responsePortalLayout(String portalDescDetail,String portalNm, List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
 
         List<Portal> portalList = new ArrayList<>();
+        List<Long> removeList=new ArrayList<>();
         for (PortalLayoutRequestDto dto : portalLayoutRequestDtoList) {
-
+            removeList.add(dto.getId());
             Portal portal=Portal.builder()
                     .id(dto.getId())
                     .content(dto.getContent())
@@ -72,7 +73,17 @@ public class PortalImpl implements PortalService {
 
             }
         }
+      for(Long removeId : removeList){
+          List<Long> result=portalRepository.getPortalByParentId(portalNm);
+
+          result.remove(removeId);
+          for(Long r :result){
+              portalRepository.deletePortalById(r);
+          }
+      }
       portalRepository.saveAll(portalList);
+
+
 
 
     }

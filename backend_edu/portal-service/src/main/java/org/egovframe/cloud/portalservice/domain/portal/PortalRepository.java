@@ -21,5 +21,10 @@ public interface PortalRepository extends JpaRepository<Portal,Long>{
     @Query(value = "SELECT unique(p.portal_desc) FROM portal p WHERE p.portal_nm = :portalNm and p.portal_desc IS NOT NULL", nativeQuery = true)
     String getPortalDescDetail(@Param("id") String portalNm);
 
+    @Query(value = "SELECT p.id FROM portal p WHERE p.portal_nm = :portalNm and p.parent_id IS NULL", nativeQuery = true)
+    List<Long> getPortalByParentId(@Param("portalNm") String portalNm);
+    @Query(value="DELETE FROM Portal WHERE id=:id",nativeQuery=true)
+    void deletePortalById(@Param("id") Long id);
+
 }
 
