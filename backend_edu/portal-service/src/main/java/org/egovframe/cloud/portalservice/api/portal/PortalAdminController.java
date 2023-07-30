@@ -59,9 +59,9 @@ public class PortalAdminController {
         List<PortalDescResponseDto> portalDescResponseDtoList=portalService.portalDescList();
         return portalDescResponseDtoList;
     }
-    @PostMapping("/api/v1/getPortals/save")
-    public ResponseEntity<List<PortalListResponseDto>> saveLayout(@RequestBody List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
-        portalService.responsePortalLayout(portalLayoutRequestDtoList);
+    @PostMapping("/api/v1/getPortals/save/{portalNm}")
+    public ResponseEntity<List<PortalListResponseDto>> saveLayout(@PathVariable String portalNm,@RequestBody List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
+        portalService.responsePortalLayout(portalNm,portalLayoutRequestDtoList);
 
         return null;
 //        List<Portal> portals = portalRepo.findPortalsByAll(portalId);

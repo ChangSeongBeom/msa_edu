@@ -21,21 +21,36 @@ public class PortalImpl implements PortalService {
     CustomMapper mapper=new CustomMapper();
 
     @Override
-    public void responsePortalLayout(List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
+    public void responsePortalLayout(String portalNm, List<PortalLayoutRequestDto> portalLayoutRequestDtoList) {
+        List<Portal> portalList = new ArrayList<>();
 
-        PortalLayoutRequestDto p= portalLayoutRequestDtoList.get(0);
-        System.out.println(p);
-        Long pLong= p.getId();
-        String pType = p.getType();
-        String pContent=p.getContent();
+        for (PortalLayoutRequestDto dto : portalLayoutRequestDtoList) {
+            Portal portal = Portal.builder()
+                    .id(dto.getId())
+                    .type(dto.getType())
+                    .content(dto.getContent())
+                    .portalNm(portalNm)
+                    .build();
+            portalList.add(portal);
+        }
 
-        Portal pPortal=Portal.builder()
-                .id(pLong)
-                .type(pType)
-                .content(pContent)
-                .build();
+        portalRepository.saveAll(portalList);
+//        PortalLayoutRequestDto p= portalLayoutRequestDtoList.get(0);
+//        System.out.println("portal portal"+p);
+//        Long pLong= p.getId();
+//        String pType = p.getType();
+//        String pContent=p.getContent();
+//
+//        Portal pPortal=Portal.builder()
+//                .id(pLong)
+//                .type(pType)
+//                .content(pContent)
+//                .build();
+//
+//        portalRepository.save(pPortal);
 
-        portalRepository.save(pPortal);
+
+
 //        Review review=Review.builder()
 //                .loginId(requestReviewDto.getLoginId())
 //                .contentId(requestReviewDto.getContentId())

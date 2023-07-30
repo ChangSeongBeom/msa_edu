@@ -8,22 +8,24 @@ import { ACCESS_TOKEN, CLAIM_NAME, SERVER_API_URL } from '@constants/env'
 import { common, statisticsService } from '@service';
 
 
-const SaveZone = ({ data, onClick }) => {
+const SaveZone = ({ data,portalNm,onClick }) => {
   const [saveIsActive, setSaveIsActive] = useState(false);
+  //const [newportalNm,setPortalNm]=useState(portalNm);
 
- 
+
+
   function dataSend(data){
     for (const key in data) {
       if (Object.hasOwnProperty.call(data, key)) {
         const item = data[key];
-        console.log("item",item);
+        //const portalNmString = JSON.stringify(portalNm);
+        const portalNmString = portalNm.portalNm;
+    
 
-       
-        axios.post('/portal-service/api/v1/getPortals/save', item
+        axios.post(`/portal-service/api/v1/getPortals/save/${portalNmString}`, item
+        //axios.post(`/portal-service/api/v1/getPortals/save/${portalNmString}`, data
         ,{
-        
           headers: common.headers
-          
         }
         )
         .then(response => {

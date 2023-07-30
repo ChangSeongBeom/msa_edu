@@ -39,13 +39,13 @@ function PortalDetail() {
 
 
   useEffect(() => {
-    console.log("adsfdfsafdafa",router.query.Portal_Detail);
     setPortalNm(router.query.Portal_Detail);
   }, [router.query.Portal_Detail]);
 
   useEffect(() => {
-      if (isLogin) {
-        axios.get(`/portal-service/api/v1/getPortals/1`, {
+      if (isLogin && portalNm) {
+        console.log("portalNMNM",portalNm);
+        axios.get(`/portal-service/api/v1/getPortals/${portalNm}`, {
           headers: common.headers,
         })
           .then(function (response) {
@@ -56,7 +56,7 @@ function PortalDetail() {
             console.error('Error fetching data:', error);
           });
       }
-    }, [isLogin]);
+    }, [isLogin, portalNm]);
 
 
   useEffect(() => {
@@ -258,6 +258,9 @@ function PortalDetail() {
           <SaveZone
             data={{
               layout
+            }}
+            portalNm={{
+              portalNm
             }}
           />
         </div>
