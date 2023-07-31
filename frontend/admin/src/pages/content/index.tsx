@@ -201,7 +201,7 @@ const Content: NextPage<ContentProps> = props => {
       // else{setIsContentplayOpen(true)};
       //route.push(`/content/${contentNo}`)
     },
-    [route],
+    [setSelectedContentNo, setIsContentplayOpen],
   )
 
   // 목록컬럼 재정의 > 컬럼에 비지니스 로직이 필요한 경우
@@ -233,10 +233,10 @@ const Content: NextPage<ContentProps> = props => {
 
   return (
     <div className={classes.root}>
-      {isContentplayOpen && <Contentplay contentNo={selectedContentNo} />}
-      
-  
-     
+      {selectedContentNo && (
+        <Contentplay contentNo={selectedContentNo} />
+      )}
+
       <Search
         keywordTypeItems={searchTypes}
         handleSearch={handleSearch}
