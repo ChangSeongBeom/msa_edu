@@ -45,6 +45,8 @@ public class ContentResponseDto {
      */
     private String contentValue;
 
+    private String contentUrl;
+
     /**
      * 컨텐츠 엔티티를 생성자로 주입 받아서 컨텐츠 상세 응답 DTO 속성 값 세팅
      *
@@ -55,6 +57,7 @@ public class ContentResponseDto {
         this.contentName = entity.getContentName();
         this.contentRemark = entity.getContentRemark();
         this.contentValue = entity.getContentValue();
+        this.contentUrl=entity.getContentUrl();
     }
 
     /**

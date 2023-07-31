@@ -3,6 +3,7 @@ package org.egovframe.cloud.portalservice.domain.content;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.egovframe.cloud.servlet.domain.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -58,6 +59,9 @@ public class Content extends BaseEntity {
     @Column(nullable = false, columnDefinition = "longtext")
     private String contentValue;
 
+    @Getter
+    @Setter
+    private String contentUrl;
     /**
      * 빌더 패턴 클래스 생성자
      *

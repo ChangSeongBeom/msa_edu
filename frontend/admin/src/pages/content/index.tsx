@@ -23,9 +23,11 @@ import { AxiosError } from 'axios'
 import { NextPage } from 'next'
 import { TFunction, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo,useState ,useEffect} from 'react'
 // 상태관리 recoil
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import Contentplay from '../contentplay/Contentplay'
+
 
 // material-ui style
 const useStyles = makeStyles((theme: Theme) =>
@@ -127,10 +129,13 @@ export interface ContentProps extends PopupProps {}
 // 실제 render되는 컴포넌트
 const Content: NextPage<ContentProps> = props => {
   // props 및 전역변수
+
   const { handlePopup } = props
   const classes = useStyles()
   const route = useRouter()
   const { t } = useTranslation()
+  const [isContentplayOpen, setIsContentplayOpen] = useState(false);
+  const [selectedContentNo, setSelectedContentNo] = useState<string | null>(null);
 
   // 조회조건 select items
   const searchTypes: IKeywordType[] = [
@@ -140,7 +145,7 @@ const Content: NextPage<ContentProps> = props => {
     },
   ]
 
-  /**
+  /**å
    * 상태관리 필요한 훅
    */
   // 조회조건 상태관리
@@ -187,7 +192,14 @@ const Content: NextPage<ContentProps> = props => {
   // 수정 시 상세 화면 이동
   const updateContent = useCallback(
     (contentNo: string) => {
-      route.push(`/content/${contentNo}`)
+       setSelectedContentNo((prevState) => (prevState === contentNo ? null : contentNo));
+       setIsContentplayOpen((prevState) => !prevState);
+      // if(!isContentplayOpen){setIsContentplayOpen(true)}
+      // else{setIsContentplayOpen(false)}
+      // console.log(isContentplayOpen);
+      // if(isContentplayOpen==true){setIsContentplayOpen(false)}
+      // else{setIsContentplayOpen(true)};
+      //route.push(`/content/${contentNo}`)
     },
     [route],
   )
@@ -215,9 +227,16 @@ const Content: NextPage<ContentProps> = props => {
   const handleRegister = () => {
     route.push('content/-1')
   }
+  useEffect(() => {
+    console.log('isContentplayOpen:', isContentplayOpen);
+  }, [isContentplayOpen]);
 
   return (
     <div className={classes.root}>
+      {isContentplayOpen && <Contentplay contentNo={selectedContentNo} />}
+      
+  
+     
       <Search
         keywordTypeItems={searchTypes}
         handleSearch={handleSearch}
